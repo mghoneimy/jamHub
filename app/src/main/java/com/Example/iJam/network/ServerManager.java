@@ -4,29 +4,22 @@ package com.Example.iJam.network;
  * Created by Mostafa on 7/5/2015.
  */
 public class ServerManager {
+    private static String serverURL = null;
     private static String serverStatus = null;
-    private static String error = null;
 
     public static void setServerStatus(String status){
         serverStatus = status;
     }
 
-    public static void setError(String error) {
-        ServerManager.error = error;
+    public static void setServerURL (String url){
+        serverURL = "http://" + url + "/JamhubBackEnd";
     }
 
     public static String getServerURL() {
         //return "http://10.40.35.117/JamhubBackEnd";
-        return "http://192.168.1.8/JamhubBackEnd";
+//        return "http://192.168.1.7/JamhubBackEnd";
        //return "http://192.168.1.73/JamHubBackEnd";
-       //return "http://10.40.40.191/JamHubBackEnd";
-    }
-
-    public static String getServerStatus() {
-        return serverStatus;
-    }
-
-    public static String getError() {
-        return error;
+       //return "http://10.40.34.9/JamHubBackEnd";
+        return serverURL;
     }
 }

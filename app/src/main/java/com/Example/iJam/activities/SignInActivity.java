@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.Example.iJam.R;
 import com.Example.iJam.models.User;
-import com.Example.iJam.network.LogInTask;
+import com.Example.iJam.network.HttpPostTask;
 import com.Example.iJam.network.ServerManager;
 
 import org.json.JSONException;
@@ -26,6 +26,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     EditText et_user_name;
     EditText et_password;
+    EditText et_ip;
     Button signup;
     Button signin;
 
@@ -49,22 +50,23 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         et_user_name = (EditText) findViewById(R.id.signin_et_username);
         et_password = (EditText) findViewById(R.id.signin_et_pass);
+        et_ip = (EditText) findViewById(R.id.signin_et_ip);
         signin = (Button) findViewById(R.id.signin_bt_signin);
         signup = (Button) findViewById(R.id.signin_bt_signup);
 
         settings = getSharedPreferences(PREFS_NAME, 0);
         signedIn = settings.getBoolean("signIn", false);
 
-        if (signedIn) {
-            Toast.makeText(getApplicationContext(), "Intializing...Please Wait!", Toast.LENGTH_SHORT).show();
-            user_name = settings.getString("user_name", user_name);
-            password = settings.getString("password", password);
-            try {
-                signInUser(user_name, password);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (signedIn) {
+//            Toast.makeText(getApplicationContext(), "Intializing...Please Wait!", Toast.LENGTH_SHORT).show();
+//            user_name = settings.getString("user_name", user_name);
+//            password = settings.getString("password", password);
+//            try {
+//                signInUser(user_name, password);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         TextView mTextView = (TextView) findViewById(R.id.signin_txt_forget);
         mTextView.setPaintFlags(mTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -102,7 +104,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         login_info.put("user_name", user_name);
         login_info.put("password", password);
 
-        new LogInTask(getApplicationContext()) {
+        new HttpPostTask(ServerManager.getServerURL()+"/users/login.php", getApplicationContext()) {
             @Override
             protected void onPostExecute(String s) {
                 try {
@@ -149,6 +151,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.signin_bt_signin:
+                ServerManager.setServerURL(et_ip.getText().toString().trim());
                 user_name = et_user_name.getText().toString().trim();
                 password = et_password.getText().toString().trim();
 

@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_below="@id/signin_img_logo"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/linearLayout2">
 
             <EditText
                 android:layout_width="fill_parent"
@@ -38,7 +39,7 @@
                 android:ems="10"
                 android:id="@+id/signin_et_pass" />
 
-        <TextView
+            <TextView
             android:layout_width="122dp"
             android:layout_height="40dp"
             android:id="@+id/signin_txt_forget"
@@ -47,6 +48,12 @@
             android:textSize="15dp"
             android:text="Forgot Password"
             android:layout_marginTop="10dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signin_et_ip"
+                android:hint="IP address (debugging)" />
 
         </LinearLayout>
 
@@ -80,4 +87,5 @@
             android:layout_marginLeft="0.5dp" />
 
     </LinearLayout>
+
 </RelativeLayout>
